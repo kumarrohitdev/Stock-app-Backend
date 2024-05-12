@@ -1,18 +1,21 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const express = require('express');
+const cors=require('cors')
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
 // URLs of the websites you want to scrape
 const urls = [
-  'https://www.google.com/finance/quote/ZOMATO:NSE',
-  'https://www.google.com/finance/quote/META:NASDAQ',
-  'https://www.google.com/finance/quote/COIN:NASDAQ',
+   'https://www.google.com/finance/quote/META:NASDAQ',
+   'https://www.google.com/finance/quote/COIN:NASDAQ',
   'https://www.google.com/finance/quote/GOOGL:NASDAQ',
   'https://www.google.com/finance/quote/INFY:NYSE',
   'https://www.google.com/finance/quote/INDIANB:NSE',
-  'https://www.google.com/finance/quote/INDIACEM:NSE'
+  'https://www.google.com/finance/quote/INDIACEM:NSE',
+  'https://www.google.com/finance/quote/ZOMATO:NSE'
 ];
 
 // Function to fetch HTML content of a URL
@@ -43,7 +46,7 @@ async function scrapeAllData() {
     const html = await fetchData(url);
     if (html) {
       const data = scrapeData(html);
-      scrapedData.push({ url, data });
+      scrapedData.push({ url, data});
     }
   }
   return scrapedData;
